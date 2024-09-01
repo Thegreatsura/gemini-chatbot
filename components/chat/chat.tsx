@@ -1,8 +1,8 @@
 'use client'
 
-import { ChatList } from '@/components/chat-list'
-import { ChatPanel } from '@/components/chat-panel'
-import { EmptyScreen } from '@/components/empty-screen'
+import { ChatList } from '@/components/chat/chat-list'
+import { ChatPanel } from '@/components/chat/chat-panel'
+import { EmptyScreen } from '@/components/chat/empty-screen'
 import { ListFlights } from '@/components/flights/list-flights'
 import { ListHotels } from '@/components/hotels/list-hotels'
 import { Message } from '@/lib/chat/actions'
@@ -14,6 +14,7 @@ import { useAIState, useUIState } from 'ai/rsc'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { ThemeToggle } from '../theme-toggle'
 
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
@@ -67,9 +68,11 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
       <div className={cn('pb-[200px] pt-4', className)} ref={messagesRef}>
         {messages.length ? (
           <ChatList messages={messages} isShared={false} session={session} />
-        ) : (
-          <EmptyScreen />
-        )}
+        ) : // <>
+        //   <EmptyScreen />
+        //   <ThemeToggle />
+        // </>
+        null}
         <div className="h-px w-full" ref={visibilityRef} />
       </div>
       <ChatPanel

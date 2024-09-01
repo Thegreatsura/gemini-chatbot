@@ -8,6 +8,7 @@ import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
 import { Toaster } from '@/components/ui/sonner'
 import { KasadaClient } from '@/lib/kasada/kasada-client'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export const metadata = {
   metadataBase: new URL('https://gemini.vercel.ai'),
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           GeistMono.variable
         )}
       >
-        <KasadaClient />
+        {/* <KasadaClient /> */}
         <Toaster position="top-center" />
         <Providers
           attribute="class"
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <div className="flex flex-col min-h-screen">
-            <Header />
+            {/* <ThemeToggle /> */}
             <main className="flex flex-col flex-1">{children}</main>
           </div>
           <TailwindIndicator />
