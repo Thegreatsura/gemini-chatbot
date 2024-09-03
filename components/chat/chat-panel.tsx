@@ -1,18 +1,11 @@
 import * as React from 'react'
-
-import { shareChat } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { PromptForm } from '@/components/chat/prompt-form'
 import { ButtonScrollToBottom } from '@/components/chat/button-scroll-to-bottom'
 import { IconShare } from '@/components/ui/icons'
 import { FooterText } from '@/components/chat/footer'
-import { ChatShareDialog } from '@/components/chat-share-dialog'
-import { useAIState, useActions, useUIState } from 'ai/rsc'
-import type { AI } from '@/lib/chat/actions'
-import { nanoid } from 'nanoid'
-import { UserMessage } from '../stocks/message'
 import { cn } from '@/lib/utils'
-import { toast } from 'sonner'
+import { message } from './chat'
 
 export interface ChatPanelProps {
   id?: string
@@ -31,9 +24,6 @@ export function ChatPanel({
   isAtBottom,
   scrollToBottom
 }: ChatPanelProps) {
-  const [aiState] = useAIState()
-  const [messages, setMessages] = useUIState<typeof AI>()
-  const { submitUserMessage } = useActions()
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
 
   const exampleMessages = [
@@ -50,7 +40,7 @@ export function ChatPanel({
   ]
 
   return (
-    <div className="fixed inset-x-0 bg-white/90 bottom-0 w-full duration-300 ease-in-out peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px] dark:from-10%">
+    <div className="fixed inset-x-0 bottom-0 w-full duration-300 ease-in-out peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px] dark:from-10%">
       <ButtonScrollToBottom
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}
@@ -58,7 +48,7 @@ export function ChatPanel({
 
       <div className="mx-auto sm:max-w-2xl sm:px-4">
         <div className="mb-4 grid sm:grid-cols-2 gap-2 sm:gap-4 px-4 sm:px-0">
-          {messages.length === 0 &&
+          {message.length === 0 &&
             exampleMessages.map((example, index) => (
               <div
                 key={example.heading}
@@ -66,42 +56,6 @@ export function ChatPanel({
                   'cursor-pointer bg-zinc-50 text-zinc-950 rounded-2xl p-4 sm:p-6 hover:bg-zinc-100 transition-colors',
                   index > 1 && 'hidden md:block'
                 )}
-                onClick={async () => {
-                  setMessages(currentMessages => [
-                    ...currentMessages,
-                    {
-                      id: nanoid(),
-                      display: <UserMessage>{example.message}</UserMessage>
-                    }
-                  ])
-
-                  try {
-                    const responseMessage = await submitUserMessage(
-                      example.message
-                    )
-
-                    setMessages(currentMessages => [
-                      ...currentMessages,
-                      responseMessage
-                    ])
-                  } catch {
-                    toast(
-                      <div className="text-red-600">
-                        You have reached your message limit! Please try again
-                        later, or{' '}
-                        <a
-                          className="underline"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href="https://vercel.com/templates/next.js/gemini-ai-chatbot"
-                        >
-                          deploy your own version
-                        </a>
-                        .
-                      </div>
-                    )
-                  }
-                }}
               >
                 <div className="font-medium">{example.heading}</div>
                 <div className="text-sm text-zinc-800">
@@ -111,7 +65,7 @@ export function ChatPanel({
             ))}
         </div>
 
-        {messages?.length >= 2 ? (
+        {message?.length >= 2 ? (
           <div className="flex h-fit items-center justify-center">
             <div className="flex space-x-2">
               {id && title ? (
@@ -123,17 +77,6 @@ export function ChatPanel({
                     <IconShare className="mr-2" />
                     Share
                   </Button>
-                  <ChatShareDialog
-                    open={shareDialogOpen}
-                    onOpenChange={setShareDialogOpen}
-                    onCopy={() => setShareDialogOpen(false)}
-                    shareChat={shareChat}
-                    chat={{
-                      id,
-                      title,
-                      messages: aiState.messages
-                    }}
-                  />
                 </>
               ) : null}
             </div>

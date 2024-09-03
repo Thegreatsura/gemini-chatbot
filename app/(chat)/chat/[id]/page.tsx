@@ -31,7 +31,8 @@ export async function generateMetadata({
 export default async function ChatPage({ params }: ChatPageProps) {
   return (
     <AI>
-      <Chat id={} session={} initialMessages={} missingKeys={} />
+      <div></div>
+      {/* <Chat id={params.id} session={chat} initialMessages={} missingKeys={} /> */}
     </AI>
   )
 }
