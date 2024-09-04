@@ -1,49 +1,49 @@
-'use client'
+"use client";
 
-import * as React from 'react'
-import Textarea from 'react-textarea-autosize'
-import { Button } from '@/components/ui/button'
-import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
+import * as React from "react";
+import Textarea from "react-textarea-autosize";
+import { Button } from "@/components/ui/button";
+import { IconArrowElbow, IconPlus } from "@/components/chat/icons";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
-import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
-import { toast } from 'sonner'
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useEnterSubmit } from "./use-enter-submit";
+import { ArrowBigDown, PlusIcon } from "lucide-react";
 
 export function PromptForm({
   input,
-  setInput
+  setInput,
 }: {
-  input: string
-  setInput: (value: string) => void
+  input: string;
+  setInput: (value: string) => void;
 }) {
-  const { formRef, onKeyDown } = useEnterSubmit()
-  const inputRef = React.useRef<HTMLTextAreaElement>(null)
+  const { formRef, onKeyDown } = useEnterSubmit();
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   React.useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [])
+  }, []);
 
-  const fileRef = React.useRef<HTMLInputElement>(null)
+  const fileRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <form
       ref={formRef}
       onSubmit={async (e: any) => {
-        e.preventDefault()
+        e.preventDefault();
 
         // Blur focus on mobile
         if (window.innerWidth < 600) {
-          e.target['message']?.blur()
+          e.target["message"]?.blur();
         }
 
-        const value = input.trim()
-        setInput('')
-        if (!value) return
+        const value = input.trim();
+        setInput("");
+        if (!value) return;
       }}
     >
       <input
@@ -51,13 +51,13 @@ export function PromptForm({
         className="hidden"
         id="file"
         ref={fileRef}
-        onChange={async event => {
+        onChange={async (event) => {
           if (!event.target.files) {
-            toast.error('No file selected')
-            return
+            // toast.error('No file selected')
+            return;
           }
 
-          const file = event.target.files[0]
+          const file = event.target.files[0];
         }}
       />
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-zinc-100 px-12 sm:rounded-full sm:px-12">
@@ -68,10 +68,10 @@ export function PromptForm({
           size="icon"
           className="absolute left-4 top-[14px] size-8 rounded-full bg-background p-0 sm:left-4"
           onClick={() => {
-            fileRef.current?.click()
+            fileRef.current?.click();
           }}
         >
-          <IconPlus />
+          <PlusIcon />
           <span className="sr-only">New Chat</span>
         </Button>
         {/* </TooltipTrigger>
@@ -82,7 +82,7 @@ export function PromptForm({
           tabIndex={0}
           onKeyDown={onKeyDown}
           placeholder="Send a message."
-          className="min-h-[60px] w-full bg-transparent placeholder:text-zinc-900 resize-none px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
+          className="min-h-[60px] w-full bg-transparent text-black placeholder:text-zinc-900 dark:placeholder:text-black resize-none px-4 py-[1.3rem] focus-within:outline-none sm:text-sm"
           autoFocus
           spellCheck={false}
           autoComplete="off"
@@ -90,7 +90,7 @@ export function PromptForm({
           name="message"
           rows={1}
           value={input}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
         <div className="absolute right-4 top-[13px] sm:right-4">
           <Tooltip>
@@ -98,7 +98,7 @@ export function PromptForm({
               <Button
                 type="submit"
                 size="icon"
-                disabled={input === ''}
+                disabled={input === ""}
                 className="bg-transparent shadow-none text-zinc-950 rounded-full hover:bg-zinc-200"
               >
                 <IconArrowElbow />
@@ -110,5 +110,5 @@ export function PromptForm({
         </div>
       </div>
     </form>
-  )
+  );
 }

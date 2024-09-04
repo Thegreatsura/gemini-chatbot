@@ -1,19 +1,20 @@
-import * as React from 'react'
-import { Button } from '@/components/ui/button'
-import { PromptForm } from '@/components/chat/prompt-form'
-import { ButtonScrollToBottom } from '@/components/chat/button-scroll-to-bottom'
-import { IconShare } from '@/components/ui/icons'
-import { FooterText } from '@/components/chat/footer'
-import { cn } from '@/lib/utils'
-import { message } from './chat'
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { PromptForm } from "@/components/chat/prompt-form";
+import { ButtonScrollToBottom } from "@/components/chat/button-scroll-to-bottom";
+// import { IconShare } from '@/components/ui/icons'
+import { FooterText } from "@/components/chat/footer";
+import { cn } from "@/lib/utils";
+import { message } from "./chat";
+import { Share } from "lucide-react";
 
 export interface ChatPanelProps {
-  id?: string
-  title?: string
-  input: string
-  setInput: (value: string) => void
-  isAtBottom: boolean
-  scrollToBottom: () => void
+  id?: string;
+  title?: string;
+  input: string;
+  setInput: (value: string) => void;
+  isAtBottom: boolean;
+  scrollToBottom: () => void;
 }
 
 export function ChatPanel({
@@ -22,22 +23,22 @@ export function ChatPanel({
   input,
   setInput,
   isAtBottom,
-  scrollToBottom
+  scrollToBottom,
 }: ChatPanelProps) {
-  const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
+  const [shareDialogOpen, setShareDialogOpen] = React.useState(false);
 
   const exampleMessages = [
     {
-      heading: 'List flights flying from',
-      subheading: 'San Francisco to Rome today',
-      message: `List flights flying from San Francisco to Rome today`
+      heading: "List flights flying from",
+      subheading: "San Francisco to Rome today",
+      message: `List flights flying from San Francisco to Rome today`,
     },
     {
-      heading: 'What is the status',
-      subheading: 'of flight BA142?',
-      message: 'What is the status of flight BA142?'
-    }
-  ]
+      heading: "What is the status",
+      subheading: "of flight BA142?",
+      message: "What is the status of flight BA142?",
+    },
+  ];
 
   return (
     <div className="fixed inset-x-0 bottom-0 w-full duration-300 ease-in-out peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px] dark:from-10%">
@@ -53,8 +54,8 @@ export function ChatPanel({
               <div
                 key={example.heading}
                 className={cn(
-                  'cursor-pointer bg-zinc-50 text-zinc-950 rounded-2xl p-4 sm:p-6 hover:bg-zinc-100 transition-colors',
-                  index > 1 && 'hidden md:block'
+                  "cursor-pointer bg-zinc-50 text-zinc-950 rounded-2xl p-4 sm:p-6 hover:bg-zinc-100 transition-colors",
+                  index > 1 && "hidden md:block"
                 )}
               >
                 <div className="font-medium">{example.heading}</div>
@@ -74,7 +75,7 @@ export function ChatPanel({
                     variant="outline"
                     onClick={() => setShareDialogOpen(true)}
                   >
-                    <IconShare className="mr-2" />
+                    <Share className="mr-2" />
                     Share
                   </Button>
                 </>
@@ -89,5 +90,5 @@ export function ChatPanel({
         </div>
       </div>
     </div>
-  )
+  );
 }
