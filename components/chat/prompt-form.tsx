@@ -45,7 +45,11 @@ export function PromptForm({
         setInput("");
         if (!value) return;
       }}
+      className="p-0 m-0"
     >
+      {/* <div className="w-full flex items-center justify-center">
+        <p>subscribe to pro for more quotas</p>
+      </div> */}
       <input
         type="file"
         className="hidden"
@@ -60,7 +64,7 @@ export function PromptForm({
           const file = event.target.files[0];
         }}
       />
-      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-zinc-100 px-12 sm:rounded-full sm:px-12">
+      <div className="relative rounded-tl-2xl rounded-tr-2xl flex max-h-60 w-full grow flex-col overflow-hidden bg-zinc-100 px-12 sm:rounded-full sm:px-12">
         {/* <Tooltip>
           <TooltipTrigger asChild> */}
         <Button

@@ -58,13 +58,17 @@ export function Chat() {
 
   return (
     <div
-      className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
+      className="flex flex-col h-screen group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
       ref={scrollRef}
     >
-      <div className={cn("pb-[200px] pt-4")} ref={messagesRef}>
+      <div className="mx-auto max-w-2xl flex auto-rows-max gap-8 px-4">
+        <div className="flex flex-col space-y-2">hello</div>
+      </div>
+      <div className={cn("flex-1 overflow-y-scroll pt-4")} ref={messagesRef}>
         {message.length ? <ChatList messages={message} /> : <EmptyScreen />}
         <div className="h-px w-full" ref={visibilityRef} />
       </div>
+
       <ChatPanel
         id={"jjjdjd"}
         input={input}

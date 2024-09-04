@@ -41,7 +41,7 @@ export function ChatPanel({
   ];
 
   return (
-    <div className="fixed inset-x-0 bottom-0 w-full duration-300 ease-in-out peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px] dark:from-10%">
+    <div className="w-full duration-300 ease-in-out peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px] dark:from-10%">
       <ButtonScrollToBottom
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}
@@ -84,7 +84,7 @@ export function ChatPanel({
           </div>
         ) : null}
 
-        <div className="grid gap-4 sm:pb-4">
+        <div className="grid gap-3 sm:pb-4">
           <PromptForm input={input} setInput={setInput} />
           <FooterText className="hidden sm:block" />
         </div>
